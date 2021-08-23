@@ -1,0 +1,8 @@
+Write 2 simulation of elevators in a building and compare them
+
+1st simulation is N={1-6} elevators with simple logic
+
+2nd simulation is N={1-6} elevators with more complex customizable logic (more details below)
+    1. We know the summary weight of people standing on the first floor
+    2. We know the max capaity of each elevator
+
