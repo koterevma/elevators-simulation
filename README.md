@@ -4,7 +4,7 @@
 
 This project's goal is to simulate two types of lift-controle systems
 
-**First** system is has a simple logic and some minor optimizations
+**First** system will have a simple logic and some minor optimizations
 
 **Second** system will be more complicated and customizable (read more below)
 
@@ -18,7 +18,9 @@ to the desired floors
 > If one of the elevators started to move to the first floor and it's max capacity is already less than the summary weight of the people standing on the first floor,
 > we can already send the second lift to the first floor
 
+-----
+
 ## The goal
 
 The actual goal of this project is the following:
-> Figure out if it is worth to install such system in a real building
+> **Figure out if it is worth to install such system in a real building**
