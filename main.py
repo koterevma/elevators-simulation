@@ -1,30 +1,40 @@
 #!/usr/bin/env python3
 from models import Person, Elevator
-from time import sleep
 import curses
+import time
 
 
-# Actually the task is the following: 
+# Actually the task is:
 # Make the simulation input sequence (I need to figure how
 # it will look) and then test the same
-# sequence in two different simulations,
-# then compare the results - time in which all people are transfered
-# to wanted floors
+# sequence in two different simulations.
+# Then compare the results - the time for which people
+# were transported to the desired floors
 class Simulation():
-    
+
     elevators: list[Elevator]
     persons: list[Person]
-    visual_mode: bool  # If visual mode is False calculations will be instant
- 
+    current_time: float = 0
 
-def main(stdscr):
+
+def visualise(stdscr):
     FPS = 15
-
-    stdscr.addstr("It's working!!!")
+    start = time.time()
+    stdscr.addstr(str(start))
     stdscr.refresh()
-    sleep(1)
+    time.sleep(2)
+    stdscr.erase()
+    stdscr.addstr(str(time.time() - start))
+    stdscr.refresh()
+    time.sleep(2)
+
+
+def simulate():
+    pass
 
 
 if __name__ == '__main__':
-    curses.wrapper(main)
-
+    # if "--visual" in sys.argv:
+    curses.wrapper(visualise)
+    # else:
+    #     simulate()
