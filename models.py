@@ -5,43 +5,30 @@ TODO:
     with it. Also make a settings.py file where global vars such as
     "ONE_FLOOR_HEIGHT" will be declared.
 """
-from typing import Optional
+from dataclasses import dataclass, field
 
 
+@dataclass
 class Person():
     """Class that represents a person"""
 
     weight: int
-    current_floor: int
+    start_floor: int
     floor_dest: int  # The number of the floor that the person wants to get to
 
-    def __init__(self, weight: int, current_floor: int, floor_dest: int):
-        self.weight = weight
-        self.current_floor = current_floor
-        self.floor_dest = floor_dest
 
-
+@dataclass
 class Elevator():
     """Class that represents an elevator"""
 
     max_capacity: int
-    current_floor: int  # Actual floor number, not index
-    speed: float = 1.0
-    passangers: list[Person] = []
     max_floor: int  # Top floor
     min_floor: int = 1
+    current_floor: int = 1  # Actual floor number, not index
+    speed: float = 1.0
+    passangers: list[Person] = field(default_factory=list)
 
-    def __init__(self, max_capacity: int,
-                 max_floor: int, min_floor: Optional[int] = None,
-                 speed: Optional[float] = None):
-        self.max_capacity = max_capacity
-        self.current_floor = 1
-        self.speed = 1.0  # m/s
-        self.max_floor = max_floor
-        if speed is not None:
-            self.speed = speed
-
-    def __str__(self):
+    def __str__(self) -> str:
         """String representation for console drawing"""
         return """TODO [elevator]
 representation
