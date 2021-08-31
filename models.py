@@ -27,7 +27,11 @@ class Elevator():
     current_floor: int = 1  # Actual floor number, not index
     speed: float = 1.0
     passangers: list[Person] = field(default_factory=list)
-    direction: int = field(default=0, init=False)
+    direction: int = field(default=0, init=False)  # 1 - up, -1 - down, 0 - still
+
+    def can_fit(self, person: Person):
+        weight_on_board = sum(passanger.weight for passanger in self.passangers)
+        return weight_on_board + person.weight <= self.max_capacity
 
     def __str__(self) -> str:
         """String representation for console drawing"""

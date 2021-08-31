@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional
 from models import Person, Elevator
 import curses
@@ -19,32 +19,40 @@ import time
 class Simulation(ABC):
 
     elevators: list[Elevator]
-    people_waiting: list[Person]
     step: float
     test_sequence: list[tuple[Person, float]]
-    # If end_time is None, simulation will go until no passengers left
-    end_time: Optional[float] = None
-    current_time: float = 0.0
+    end_time: Optional[float] = None  # If None, simulation will go until no passengers left
+    current_time: float = field(default=0.0, init=False)
+    people_waiting: list[Person] = field(default_factory=list, init=False)
 
     @abstractmethod
     def run_simulation(self):
         pass
 
 
+class SimpleSimulation(Simulation):
+
+    def run_simulation(self):
+        # People in test sequence will appear in simulation after the specified time period
+        for i, (person, time_before_appearance) in enumerate(self.test_sequence):
+            if time_before_appearance <= self.current_time:
+                self.people_waiting.append(person)
+                self.test_sequence.remove(i)
+        
+        if not self.test_sequence and not self.people_waiting:
+            print("Simulation ended", f"Result time is {self.current_time}")
+        
+
+
 def visualise(stdscr):
-    FPS = 15
-    start = time.time()
-    stdscr.addstr(str(start))
-    stdscr.refresh()
-    time.sleep(2)
-    stdscr.erase()
-    stdscr.addstr(str(time.time() - start))
-    stdscr.refresh()
-    time.sleep(2)
+    '''Will be implemented last'''
+    pass
 
 
 if __name__ == '__main__':
+    sim = SimpleSimulation([Elevator(100, 5)], 1, [(Person(70, 1, 5), 1)])
+    sim.run_simulation()
     # if "--visual" in sys.argv:
-    curses.wrapper(visualise)
+    # curses.wrapper(visualise)
     # else:
     #     simulate()
