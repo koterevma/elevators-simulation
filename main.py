@@ -33,14 +33,16 @@ class Simulation(ABC):
 class SimpleSimulation(Simulation):
 
     def run_simulation(self):
+
+        if not self.test_sequence and not self.people_waiting:
+            print("Simulation ended", f"Result time is {self.current_time}", sep='\n')
+
         # People in test sequence will appear in simulation after the specified time period
         for i, (person, time_before_appearance) in enumerate(self.test_sequence):
             if time_before_appearance <= self.current_time:
                 self.people_waiting.append(person)
                 self.test_sequence.remove(i)
         
-        if not self.test_sequence and not self.people_waiting:
-            print("Simulation ended", f"Result time is {self.current_time}")
         
 
 
