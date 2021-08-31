@@ -27,6 +27,7 @@ class Elevator():
     current_floor: int = 1  # Actual floor number, not index
     speed: float = 1.0
     passangers: list[Person] = field(default_factory=list)
+    direction: int = field(default=0, init=False)
 
     def __str__(self) -> str:
         """String representation for console drawing"""
